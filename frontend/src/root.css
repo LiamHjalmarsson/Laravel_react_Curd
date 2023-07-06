@@ -4,3 +4,8 @@
     --lightFont: #f4f4f4;
     --darkFont: #3f3f3f;
 }
+
+* {
+    padding: 0px;
+    margin: 0px;
+}

@@ -1,14 +1,16 @@
+import { Fragment } from "react";
 import styles from "./Header.module.css";
-import Header_Nav from "./Header_Nav";
+import HeaderNav from "./HeaderNav";
 
-const Header = () => {
+const Header = (props) => {
+
     return (
-        <>
+        <Fragment>
             <header className={styles.header}>
                 <h1> CURD FOR YOUR DAY </h1>
-                <Header_Nav></Header_Nav>
+                <HeaderNav onLogin={props.onLogin} onRegister={props.onRegister}/>
             </header>
-        </>
+        </Fragment>
     )
 }
 

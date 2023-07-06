@@ -1,0 +1,25 @@
+.error{
+    text-align: center;
+    color: red;
+}
+
+.loading{
+    text-align: center;
+    color: rgb(104, 214, 170);
+}
+
+
+.section{
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.ulContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    list-style-type: none;
+}
