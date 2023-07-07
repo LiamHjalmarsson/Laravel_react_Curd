@@ -20,9 +20,9 @@ class EventController extends Controller
         "attendees.user"
     ];
 
-    public function __construct() {
-        $this->middleware("auth:sanctum")->except(["index", "show"]);
-    }
+    // public function __construct() {
+    //     $this->middleware("auth:sanctum")->except(["index", "show"]);
+    // }
 
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class EventController extends Controller
         return EventRecourse::collection(
             $query->latest()->paginate()
         );
-        return EventRecourse::collection(Event::all());
+        // return EventRecourse::collection(Event::all());
         // return EventRecourse::collection(Event::with("user")->get());
         // return Event::all();
         // return User::all();
@@ -96,6 +96,8 @@ class EventController extends Controller
                 ...$request->validate(
                     [
                         'name' => 'required|string|max:255',
+                        "title" => 'required|string',
+                        "city" => 'required|string',
                         'description' => 'nullable|string',
                         'start_time' => 'required|date',
                         'end_time' => 'required|date|after:start_time'
@@ -143,6 +145,7 @@ class EventController extends Controller
                 [
                     'name' => 'sometimes|string|max:255',
                     'description' => 'nullable|string',
+                    'city' => 'sometimes|string',
                     'start_time' => 'sometimes|date',
                     'end_time' => 'sometimes|date|after:start_time'
                 ]

@@ -19,6 +19,7 @@ class EventRecourse extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
+            "city" => $this->location,
             "description" => $this->description,
             "start_time" => $this->start_time,
             "end_time" => $this->end_time,

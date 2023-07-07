@@ -1,47 +1,57 @@
-import { Fragment, useState } from "react";
-import Header from "./components/Layout/Header/Header";
-import Auth from "./components/Auth/Auth";
-import Main from "./components/Main/Main";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import RootLayout from "./pages/RootLayout/RootLayout";
+import ErrorPage from "./pages/ErrorPage/Error";
+import HomePage from "./pages/HomePage/Home";
+import EventsRootLayout from "./pages/Events/EventsRootLayout";
+import EventsPage, { loader as eventsLoader } from "./pages/Events/Events";
+import EventDetailPage, { loader as eventDetailLoader} from "./pages/Events/EventsDetail";
 
-import styles from "./index.module.css";
+
+const router = createBrowserRouter(
+    [
+        {
+            path: "/",
+            element: <RootLayout />,
+            errorElement: <ErrorPage />,
+            id: "root",
+            children: [
+                {
+                    index: true,
+                    element: <HomePage />
+                },
+                {
+                    path: "/events",
+                    element: <EventsRootLayout />,
+                    children: [
+                        {
+                            index: true,
+                            element: <EventsPage />,
+                            loader: eventsLoader,
+                        },
+                        {
+                            path: `:eventId`,
+                            id: 'event-detail',
+                            loader: eventDetailLoader,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <EventDetailPage />
+                                }
+                            ]
+                        }
+                    ]
+                },
+                // {
+                //     path: 'auth',
+                //     element:
+                // }
+            ]
+        }
+    ]
+)
 
 function App() {
-    const [loginShow, setLoginShow] = useState(false);
-    const [registerShow, setRegisterShow] = useState(false);
-
-    const login = () => {
-        setLoginShow(true);
-        handleClose()
-    }
-
-    const register = () => {
-        setRegisterShow(true);
-        handleClose()
-    }
-
-    const handleClose = () => {
-        if (loginShow) {
-            setLoginShow(false);
-        }
-
-        if (registerShow){
-            setRegisterShow(false);
-        }
-    }
-
-
-    return (
-        <Fragment>
-            <Header onLogin={login} onRegister={register} />
-            {(loginShow || registerShow) && (
-                <Auth title={loginShow ? "Login" : "Register"} onClose={handleClose} />
-            )}
-
-            <main className={styles.main}>
-                <Main></Main>
-            </main>
-        </Fragment>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
